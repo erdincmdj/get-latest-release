@@ -15,7 +15,7 @@ async function run(): Promise<void> {
     const octokit = github.getOctokit(myToken);
 
     // Load release list from GitHub
-    let releaseList = await octokit.repos.listReleases({
+    let releaseList = await octokit.rest.repos.listReleases({
         repo: github.context.repo.repo,
         owner: github.context.repo.owner,
         per_page: topList,
@@ -25,7 +25,7 @@ async function run(): Promise<void> {
     // Search release list for latest required release
     if (core.isDebug()) {
         core.debug(`Found ${releaseList.data.length} releases`);
-        releaseList.data.forEach((el) => WriteDebug(el));
+        releaseList.data.forEach((el: any) => WriteDebug(el));
     }
 
     for (let i = 0; i < releaseList.data.length; i++) {
