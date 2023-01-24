@@ -60,6 +60,7 @@ function run() {
         });
         // Search release list for latest required release
         if (core.isDebug()) {
+            core.debug(`Parameters excludeDraft(${excludeDraft}), excludePrerelease(${excludePrerelease}), excludeRelease(${excludePrerelease})`);
             core.debug(`Found ${releaseList.data.length} releases`);
             releaseList.data.forEach((el) => WriteDebug(el));
         }
@@ -70,9 +71,11 @@ function run() {
                 (!excludeRelease && !releaseListElement.prerelease && !releaseListElement.draft)) {
                 core.debug(`Chosen: ${releaseListElement.id}`);
                 setOutput(releaseListElement);
-                break;
+                return;
             }
         }
+        console.log(`Error no version choosed from ${releaseList.data.length} release(s) with excluding types (${excludeReleaseTypes.join(', ')}).`);
+        process.exitCode = 1;
     });
 }
 /**
@@ -81,7 +84,7 @@ function run() {
  */
 function setOutput(release) {
     core.setOutput('id', release.id);
-    core.setOutput('name', release.id);
+    core.setOutput('name', release.name);
     core.setOutput('tag_name', release.tag_name);
     core.setOutput('created_at', release.created_at);
     core.setOutput('draft', release.draft);
