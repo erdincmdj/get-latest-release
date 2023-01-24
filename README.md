@@ -64,10 +64,10 @@ steps:
       echo "prerelease: ${{ steps.last_release.outputs.prerelease }}"
 ```
 
-## build
+## Build
 
 Build with this command:
 
-<em>
+```
 tsc && webpack ./index.js --output-filename index.js -o ./dist -t node --mode none
-</em>
+```
