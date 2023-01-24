@@ -41,7 +41,7 @@ async function run(): Promise<void> {
         }
     }
 
-    console.log(`Error no version choosed from ${releaseList.data.length} release(s) with excluding types (${excludeReleaseTypes.join(', ')}).`);
+    console.error(`Error no version choosed from ${releaseList.data.length} release(s) with excluding types: ${excludeReleaseTypes.join(', ')}`);
     process.exitCode = 1;
 }
 
